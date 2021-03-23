@@ -33,6 +33,14 @@ stages:
     steps:
     - script: dotnet --list-sdks
       displayName: Listar versões do .NET
+    - task: UseDotNet@2
+      displayName: Instalando .NET 6 durante o TDC
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.100-preview.2.21155.3'
+        includePreviewVersions: true
+    - script: dotnet --list-sdks
+      displayName: Listar versões do .NET pela 2a vez
     - task: DotNetCoreCLI@2
       displayName: Executar testes automatizados
       inputs:
