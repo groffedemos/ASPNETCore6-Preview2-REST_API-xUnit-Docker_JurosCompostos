@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: apifinancastdc2021 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apifinancastdc2021
+  template:
+    metadata:
+      labels:
+        app: apifinancastdc2021 
+    spec:
+      containers:
+        - name: apifinancastdc2021 
+          image: groffeazuredevops.azurecr.io/apifinancastdc2021
+          ports:
+          - containerPort: 80
