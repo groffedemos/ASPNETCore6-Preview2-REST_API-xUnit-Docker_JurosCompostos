@@ -33,19 +33,15 @@ stages:
     steps:
     - script: dotnet --list-sdks
       displayName: Listar versões do .NET
-    - task: UseDotNet@2
-      displayName: Instalar Preview 2 do .NET 6
-      inputs:
-        packageType: 'sdk'
-        version: '6.0.100-preview.2.21155.3'
-        includePreviewVersions: true
     - task: DotNetCoreCLI@2
       displayName: Executar testes automatizados
       inputs:
         command: 'test'
         projects: '**/APIFinancas.Testes.csproj'
         testRunTitle: 'Testes com juros compostos'
+
 - stage: Build
+  dependsOn: Tests
   displayName: Build stage
   jobs:
   - job: Build
@@ -62,6 +58,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          latest
 
     - upload: manifests
       artifact: manifests
